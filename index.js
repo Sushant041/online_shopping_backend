@@ -4,7 +4,7 @@
   connectToMongo();
 
   const app = express()
-  const port = 3000
+  const port = 5000
   
   app.use(express.json())
 
@@ -14,5 +14,5 @@
   
   
   app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
+    console.log(`app listening on port ${port}`)
   })
