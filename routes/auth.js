@@ -19,10 +19,11 @@ router.post(
     }),
   ],
   async (req, res) => {
+    let success = false;
     //checking errors and returnng them
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ success, errors: errors.array() });
     }
 
     // check whether the user with this email exists already
@@ -31,7 +32,7 @@ router.post(
       if (user) {
         return res
           .status(400)
-          .json({ error: "user with this email already exists" });
+          .json({ success, error: "user with this email already exists" });
       }
 
       const salt = await bcrypt.genSalt(10);
@@ -51,7 +52,8 @@ router.post(
       const authtoken = jwt.sign(data, jwt_secret);
 
       //  res.json(user);
-      res.json({ authtoken });
+      success = true;
+      res.json({ success, authtoken });
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Internal server error");
@@ -67,22 +69,25 @@ router.post(
     body("password", "Password can not be blank").exists(),
   ],
   async (req, res) => {
+     let success = false;
+    // res.headers('Access-Control-Allow-Origin', 'http://localhost:3000/login');
+
     //checking errors and returnng them
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ success, errors: errors.array() });
     }
 
     const { email, password } = req.body;
     try {
       let user = await User.findOne({ email });
       if (!user) {
-        return res.status(400).json({ error: "Invalid email or password" });
+        return res.status(400).json({ success, error: "Invalid email or password" });
       }
 
       const passwordcompare = await bcrypt.compare(password, user.password);
       if (!passwordcompare) {
-        return res.status(400).json({ error: "Invalid email or password" });
+        return res.status(400).json({ success, error: "Invalid email or password" });
       }
 
       const data = {
@@ -91,9 +96,9 @@ router.post(
         },
       };
       const authtoken = jwt.sign(data, jwt_secret);
+       success = true;
+      res.json({ success, authtoken });
 
-      //  res.json(user);
-      res.json({ authtoken });
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Internal server error");

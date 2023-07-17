@@ -7,7 +7,6 @@ const connectToMongo = async () => {
        await mongoose.connect(mongoURI);
        console.log("Connected to Mongo");
   } catch (error) {
-    res.json({error: 'Please enter a unique email'})
     console.error(error);
   }
 };
