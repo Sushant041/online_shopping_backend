@@ -6,13 +6,13 @@ const hello = () =>{
 module.exports = async (email, subject, text) =>{
     try {
         const transport = nodemailer.createTransport({
-            host: "smtp.gmail.com",
-            service: "gmail",
-            port: 587,
-            secure:true,
+            host: HOST,
+            service: SERVIC,
+            port: PORT,
+            secure:SECURE,
             auth:{
-                user:"youremail",
-                pass:"yourpassoword"
+                user:USER,
+                pass:pass
             }
         });
 
