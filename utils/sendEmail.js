@@ -12,7 +12,7 @@ module.exports = async (email, subject, text) =>{
             secure:SECURE,
             auth:{
                 user:USER,
-                pass:pass
+                pass:PASS
             }
         });
 
