@@ -11,8 +11,8 @@ module.exports = async (email, subject, text) =>{
             port: 587,
             secure:true,
             auth:{
-                user:"stardlrow@gmail.com",
-                pass:"starpleaseworld"
+                user:"youremail",
+                pass:"yourpassoword"
             }
         });
 
@@ -20,8 +20,8 @@ module.exports = async (email, subject, text) =>{
 
         const mailOptions = {
             from: {
-              email: "grtsushant@gmail.com",
-              name: "grt",
+              email: "email",
+              name: "name",
             },
             to: email,
             subject: subject,
