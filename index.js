@@ -3,7 +3,7 @@
   const cors = require('cors');
 
   connectToMongo();
-
+ 
   const app = express()
   const port = process.env.PORT || 5000
   // Enable CORS for all routes

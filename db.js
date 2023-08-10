@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 
-const mongoURI = "mongodb://localhost:27017/onlineshopping";
+const uri = process.env.MONGOURI
+
+const mongoURI = uri;
 
 const connectToMongo = async () => {
   try {
