@@ -1,13 +1,16 @@
+// s3.getBucketCors({Bucket: process.env.S3_BUCKET}, function(err, data) {})
   const connectToMongo = require('./db.js');
   const express = require('express')
   const cors = require('cors');
 
-  connectToMongo();
+   connectToMongo();
  
   const app = express()
   const port = process.env.PORT || 5000
   // Enable CORS for all routes
   app.use(cors());
+
+  console.log(process.env.PORT)
   
   app.use(express.json())
 
