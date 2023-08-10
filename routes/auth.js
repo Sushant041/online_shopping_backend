@@ -5,9 +5,9 @@ const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 var jwt = require("jsonwebtoken");
 var fetchuser = require("../middleware/fetchuser");
-const Token = require("../models/token");
-const sendEmail = require("../utils/sendEmail");
-const crypto = require("crypto");
+// const Token = require("../models/token");
+// const sendEmail = require("../utils/sendEmail");
+// const crypto = require("crypto");
 
 const jwt_secret = "youareanowauser";
 
@@ -23,6 +23,7 @@ router.post(
   ],
   async (req, res) => {
     let success = false;
+
     //checking errors and returnng them
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -33,6 +34,7 @@ router.post(
     try {
       let user = await User.findOne({ email: req.body.email });
       if (user) {
+        console.log(req.body);
         return res
           .status(400)
           .json({ success, error: "user with this email already exists" });
@@ -41,28 +43,30 @@ router.post(
       const salt = await bcrypt.genSalt(10);
       const secPass = await bcrypt.hash(req.body.password, salt);
 
-      
-      //create a user
-      user = await User.create({
+
+       //create a user          
+       user = await User.create({
         name: req.body.name,
         password: secPass,
         email: req.body.email,
       });
-      
-      // //creating token 
+        
+      //creating token 
       // const token = await new Token({
       //   userId: user.id,
       //   token: crypto.randomBytes(32).toString("hex"),
       // }).save()
       // const url = `http://localhost:3000/user/${user.id}/verify/${token.token}`;
-      // await sendEmail(user.email, "Verify Email", url)
+
+      // await sendEmail( {email: user.email, subject: "An Email sent to your account please verify", text: url})
+
 
       const data = {
         user: {
           id: user.id,
         },
       };
-      //message: "An Email sent to your account please verify",
+      // message: "An Email sent to your account please verify",
 
 
       const authtoken = jwt.sign(data, jwt_secret);
@@ -70,7 +74,6 @@ router.post(
       success = true;
       // res.json({ success, authtoken });
       res.status(201).send({ success, authtoken});
-
       
     } catch (error) {
       console.error(error.message);
@@ -169,7 +172,7 @@ router.post(
 
 router.post("/getuser", fetchuser, async (req, res) => {
   try {
-    userId = req.user.id;
+    let userId = req.user.id;
     const user = await User.findById(userId).select("-password");
     res.send(user);
   } catch (error) {
