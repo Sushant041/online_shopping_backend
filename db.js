@@ -1,10 +1,17 @@
+require("dotenv").config({
+  path: "/.env"
+});
+
 const mongoose = require('mongoose');
 
-const mongoURI = "mongodb+srv://grtsushant:Yyh6mUaCLKNzrIwh@cluster0.l4lqklc.mongodb.net/?retryWrites=true&w=majority"
+
+const url = "mongodb+srv://grtsushant:Yyh6mUaCLKNzrIwh@cluster0.l4lqklc.mongodb.net/?retryWrites=true&w=majority"
+
+
 
 const connectToMongo = async () => {
   try {
-       await mongoose.connect(mongoURI);
+       await mongoose.connect(url);
        console.log("Connected to Mongo");
   } catch (error) {
     console.error(error);

@@ -9,6 +9,7 @@ var fetchuser = require("../middleware/fetchuser");
 // const sendEmail = require("../utils/sendEmail");
 // const crypto = require("crypto");
 
+
 const jwt_secret = "youareanowauser";
 
 // Route-1: Creating a User using: POST "/api/auth/createuser".
@@ -180,5 +181,6 @@ router.post("/getuser", fetchuser, async (req, res) => {
     res.status(500).send("Internal server error");
   }
 });
+
 
 module.exports = router;
