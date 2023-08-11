@@ -5,7 +5,7 @@ require("dotenv").config({
 const mongoose = require('mongoose');
 
 
-const url = "mongodb+srv://grtsushant:Yyh6mUaCLKNzrIwh@cluster0.l4lqklc.mongodb.net/?retryWrites=true&w=majority"
+const url = "mongodb+srv://sushant:xyzabc123@cluster0.0zucmnm.mongodb.net/?retryWrites=true&w=majority"
 
 
 
