@@ -1,6 +1,5 @@
 // s3.getBucketCors({Bucket: process.env.S3_BUCKET}, function(err, data) {})
   const connectToMongo = require('./db.js');
-  const serverless = require("serverless-http")
   const express = require('express')
   const cors = require('cors');
   const router = express.Router();
@@ -23,5 +22,3 @@
     console.log(`app listening on port ${port}`)
   })
   
-  app.use("/.netlify/functions/api", router)
-  module.exports.handler = serverless(app);
